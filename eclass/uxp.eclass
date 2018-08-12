@@ -110,7 +110,8 @@ RDEPEND="$COMMON_DEPEND
                   )
          wifi? ( net-misc/networkmanager )"
 REQUIRED_USE="system-cairo? ( system-pixman )
-              wifi? ( dbus )"
+              wifi? ( dbus )
+              || ( alsa pulseaudio )"
 
 # @FUNCTION: uxpconfig_add_line
 # @USAGE: uxpconfig_add_line <line>
@@ -213,6 +214,10 @@ uxp_src_configure() {
       wifi)
         uxpconfig_use_enable $u necko-wifi
         ;;
+      +*)
+        uxpconfig_use_enable ${u#+}
+      -*)
+        uxpconfig_use_enable ${u#-}
       *)
         uxpconfig_use_enable $u
         ;;
