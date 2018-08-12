@@ -216,8 +216,10 @@ uxp_src_configure() {
         ;;
       +*)
         uxpconfig_use_enable ${u#+}
+        ;;
       -*)
         uxpconfig_use_enable ${u#-}
+        ;;
       *)
         uxpconfig_use_enable $u
         ;;
