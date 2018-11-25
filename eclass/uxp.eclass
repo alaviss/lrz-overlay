@@ -37,7 +37,7 @@ UXPCONF_EXTRA="${UXPCONF_EXTRA}"
 # @INTERNAL
 # @DESCRIPTION:
 #   Contains USE flags that can be mapped into UXP config.
-UXPUSE="accessibility alsa debug dbus eme ffmpeg gconf gps jack +jemalloc
+UXPUSE="accessibility alsa av1 debug dbus eme ffmpeg gconf gps jack +jemalloc
         libproxy raw pulseaudio startup-notification system-bz2
         system-cairo system-ffi system-jpeg system-hunspell
         system-icu system-libevent system-libvpx system-nspr
