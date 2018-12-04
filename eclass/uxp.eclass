@@ -227,7 +227,7 @@ uxp_src_configure() {
   done
 
   if use custom-optimization; then
-    uxpconfig_add_ac --enable-optimize="\"$(get-flag '-O*')\""
+    uxpconfig_add_ac --enable-optimize="\"$(get-flag '-O*') $(get-flag '-g*')\""
   else
     uxpconfig_add_ac '--enable-optimize="-O2 -msse2 -mfpmath=sse"'
   fi
@@ -248,6 +248,7 @@ uxp_src_configure() {
 # @USAGE: uxp_src_compile
 # @DESCRIPTION: Compile the UXP application
 uxp_src_compile() {
+  append-ldflags '-Wl,-rpath,$ORIGIN'
   emake -f client.mk build
 }
 
