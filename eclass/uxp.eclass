@@ -248,7 +248,7 @@ uxp_src_configure() {
 # @USAGE: uxp_src_compile
 # @DESCRIPTION: Compile the UXP application
 uxp_src_compile() {
-  append-ldflags '-Wl,-rpath,$ORIGIN'
+  append-ldflags "'-Wl,-rpath,$ORIGIN'"
   emake -f client.mk build
 }
 
