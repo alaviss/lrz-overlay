@@ -74,7 +74,7 @@ COMMON_DEPEND="accessibility? ( dev-libs/atk )
                system-nspr? ( >=dev-libs/nspr-4.13.1 )
                system-nss? ( >=dev-libs/nss-3.38 )
                system-pixman? ( >=x11-libs/pixman-0.19.2 )
-               system-sqlite? ( >=dev-db/sqlite-3.21.0[secure-delete] )
+               system-sqlite? ( >=dev-db/sqlite-3.26.0[secure-delete] )
                system-zlib? ( >=sys-libs/zlib-1.2.3 )
                >=x11-libs/gtk+-2.18.0:2
                x11-libs/libX11
