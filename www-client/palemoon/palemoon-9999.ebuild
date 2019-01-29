@@ -38,6 +38,11 @@ src_configure() {
 src_install() {
   uxp_src_install
 
+  local version=$(cat application/palemoon/config/version.txt)
+  [[ -z $version ]] && die "Unable to get palemoon version"
+  rm "$ED"/usr/lib/palemoon-$version/palemoon-bin
+  dosym palemoon /usr/lib/palemoon-$version/palemoon-bin
+
   if ! use official-branding; then
     icns="16 28 32"
     brand="application/$PN/branding/unofficial"
