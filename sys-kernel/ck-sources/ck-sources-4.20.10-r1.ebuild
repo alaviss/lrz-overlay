@@ -51,7 +51,10 @@ CK_SERIES=(
 	0014-Reinstate-default-Hz-of-100-in-combination-with-MuQS.patch
 	0015-Swap-sucks.patch
 )
-UNIPATCH_LIST="${CK_SERIES[@]/#/$WORKDIR/ck-patches/}"
+UNIPATCH_LIST="
+  ${CK_SERIES[@]/#/$WORKDIR/ck-patches/}
+  ${FILESDIR}/muqss-export-sched_smt_present.patch
+"
 UNIPATCH_STRICTORDER="yes"
 
 src_unpack() {
