@@ -7,7 +7,7 @@ EAPI=7
 
 inherit bash-completion-r1 git-r3 multiprocessing
 
-DESRCIPTION="A package manager for the Nim programming language."
+DESCRIPTION="A package manager for the Nim programming language."
 HOMEPAGE="https://github.com/nim-lang/nimble"
 KEYWORDS=""
 SLOT=0
