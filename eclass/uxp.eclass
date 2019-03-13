@@ -248,7 +248,7 @@ uxp_src_configure() {
 # @USAGE: uxp_src_compile
 # @DESCRIPTION: Compile the UXP application
 uxp_src_compile() {
-  if !use debug; then
+  if ! use debug; then
     append-cflags -g0
     append-cxxflags -g0
   fi
