@@ -10,8 +10,8 @@ HOMEPAGE="https://dev.gentoo.org/~mpagano/genpatches/
 
 IUSE="experimental"
 
-K_WANT_GENPATCHES="base extras experimental"
-K_GENPATCHES_VER="15"
+K_WANT_GENPATCHES="base extras"
+K_GENPATCHES_VER="6"
 K_SECURITY_UNSUPPORTED="1"
 K_PREPATCHED="1"
 
@@ -23,7 +23,7 @@ K_BRANCH_ID="${KV_MAJOR}.${KV_MINOR}"
 
 DESCRIPTION="Gentoo's genpatches for Linux ${K_BRANCH_ID}, with Con Kolivas' ${EXTRAVERSION} patchset."
 
-CK_FILE="${K_BRANCH_ID}-broken-out.tar.xz"
+CK_FILE="${K_BRANCH_ID}${EXTRAVERSION}-broken-out.tar.xz"
 CK_BASE_URL="http://ck.kolivas.org/patches/${KV_MAJOR}.0"
 
 # clearly identify package name in distdir
@@ -35,7 +35,7 @@ CK_URI="${CK_LVER_URL}/${CK_FILE} -> ${CK_DISTNAME}"
 SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI} ${CK_URI}"
 
 CK_SERIES=(
-	0001-MultiQueue-Skiplist-Scheduler-version-v0.185.patch
+	0001-MultiQueue-Skiplist-Scheduler-version-v0.190.patch
 	0002-Fix-Werror-build-failure-in-tools.patch
 	0003-Make-preemptible-kernel-default.patch
 	0004-Expose-vmsplit-for-our-poor-32-bit-users.patch
@@ -53,7 +53,6 @@ CK_SERIES=(
 )
 UNIPATCH_LIST="
   ${CK_SERIES[@]/#/$WORKDIR/ck-patches/}
-  ${FILESDIR}/muqss-export-sched_smt_present.patch
 "
 UNIPATCH_STRICTORDER="yes"
 
