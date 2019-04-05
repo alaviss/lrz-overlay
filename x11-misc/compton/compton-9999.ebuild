@@ -18,6 +18,7 @@ IUSE="dbus +drm opengl +pcre xinerama"
 COMMON_DEPEND="
 	dev-libs/libconfig:=
 	dev-libs/libxdg-basedir:=
+	dev-libs/uthash:=
 	x11-libs/libX11
 	x11-libs/libXcomposite
 	x11-libs/libXdamage
