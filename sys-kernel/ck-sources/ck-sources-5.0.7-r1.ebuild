@@ -11,7 +11,7 @@ HOMEPAGE="https://dev.gentoo.org/~mpagano/genpatches/
 IUSE="experimental"
 
 K_WANT_GENPATCHES="base extras"
-K_GENPATCHES_VER="6"
+K_GENPATCHES_VER="8"
 K_SECURITY_UNSUPPORTED="1"
 K_PREPATCHED="1"
 
@@ -51,9 +51,9 @@ CK_SERIES=(
 	0014-Reinstate-default-Hz-of-100-in-combination-with-MuQS.patch
 	0015-Swap-sucks.patch
 )
-UNIPATCH_LIST="
-  ${CK_SERIES[@]/#/$WORKDIR/ck-patches/}
-"
+#UNIPATCH_LIST="
+#  ${CK_SERIES[@]/#/$WORKDIR/ck-patches/}
+#"
 UNIPATCH_STRICTORDER="yes"
 
 src_unpack() {
@@ -61,4 +61,15 @@ src_unpack() {
 	unpack "${CK_DISTNAME}"
 	mv {,ck-}patches
 	kernel-2_src_unpack
+}
+
+src_prepare() {
+	kernel-2_src_prepare
+
+	sed -i '/-CFLAGS/ s/$/ \$(LIBELF_FLAGS)/' "$WORKDIR/ck-patches/0002-Fix-Werror-build-failure-in-tools.patch"
+	for i in ${CK_SERIES[@]/#/$WORKDIR/ck-patches/}; do
+		eapply -F3 "$i"
+	done
+
+	eapply_user
 }
