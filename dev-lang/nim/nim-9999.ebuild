@@ -39,7 +39,7 @@ compile_tool() {
   [[ $# != 1 ]] && die "compile_tool <path to tool>"
   local tool=$(basename "$1" ".nim")
   bin/nim c -o:"bin/$tool" \
-    $(boot_use_define !debug danger) \
+    $(boot_use_define !debug release) \
     --parallel_build:$(makeopts_jobs) \
     "$1" || die "building '$1' failed"
 }
