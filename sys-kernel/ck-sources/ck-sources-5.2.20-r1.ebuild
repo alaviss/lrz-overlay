@@ -11,7 +11,7 @@ HOMEPAGE="https://dev.gentoo.org/~mpagano/genpatches/
 IUSE="experimental"
 
 K_WANT_GENPATCHES="base extras"
-K_GENPATCHES_VER="17"
+K_GENPATCHES_VER="20"
 K_SECURITY_UNSUPPORTED="1"
 K_PREPATCHED="1"
 
@@ -36,7 +36,7 @@ SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI} ${CK_URI}"
 
 CK_SERIES=(
 	0001-MultiQueue-Skiplist-Scheduler-version-0.193.patch
-	0002-Fix-Werror-build-failure-in-tools.patch
+#	0002-Fix-Werror-build-failure-in-tools.patch
 	0003-Make-preemptible-kernel-default.patch
 	0004-Expose-vmsplit-for-our-poor-32-bit-users.patch
 	0005-Create-highres-timeout-variants-of-schedule_timeout-.patch
@@ -66,6 +66,7 @@ src_unpack() {
 
 src_prepare() {
 	kernel-2_src_prepare
+	sed 's/-Werror//g' -i tools/objtool/Makefile
 
 	eapply_user
 }
