@@ -56,7 +56,7 @@ src_compile() {
 src_install() {
 	meson_src_install
 	docinto examples
-	dodoc compton.sample.conf
+	dodoc $PN.sample.conf
 	if use dbus; then
 		dodoc dbus-examples/*
 	fi
