@@ -42,7 +42,7 @@ DEPEND="${COMMON_DEPEND}
 	x11-base/xorg-proto
 	drm? ( x11-libs/libdrm )"
 
-src_compile() {
+src_configure() {
 	local emesonargs=(
 		-Ddbus=$(usex dbus true false)
 		-Dopengl=$(usex opengl true false)
