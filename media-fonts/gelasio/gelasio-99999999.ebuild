@@ -1,17 +1,18 @@
-# Copyright 2018 Leorize
+# Copyright 2020 Leorize
 #
 # Licensed under the ISC license. For more information, please refer to the
 # "license" file, included in this distribution.
 
-EAPI=6
+EAPI=7
+
+inherit font git-r3
+
 DESCRIPTION="A Google font that is metrically compatible with Georgia"
-SRC_URI="https://fontlibrary.org/assets/downloads/$PN/4d610887ff4d445cbc639aae7828d139/$PN.zip -> $P.zip"
-HOMEPAGE="https://fontlibrary.org/en/font/gelasio"
-KEYWORDS="~amd64"
+HOMEPAGE="https://github.com/SorkinType/Gelasio"
+KEYWORDS=""
 SLOT=0
 LICENSE="OFL-1.1"
-S="$WORKDIR"
 
-inherit font
-
+EGIT_REPO_URI="https://github.com/SorkinType/Gelasio.git"
 FONT_SUFFIX="ttf"
+FONT_S="$S/fonts/ttf"
