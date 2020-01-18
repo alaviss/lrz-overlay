@@ -18,3 +18,9 @@ RDEPEND="
   x11-libs/gtk+:3[wayland]
 "
 DEPEND="$RDEPEND"
+
+src_install() {
+  meson_src_install
+  cd man
+  doman wofi.1 wofi.5 wofi.7
+}
