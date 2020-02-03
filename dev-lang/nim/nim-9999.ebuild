@@ -54,7 +54,8 @@ src_compile() {
   ./koch boot $(boot_use_define !debug release) \
     $(boot_use_define linenoise useLinenoise) \
     $(boot_use_define elibc_glibc nativeStacktrace) \
-    --parallel_build:$(makeopts_jobs) || die "bootstrap failed"
+    --parallel_build:$(makeopts_jobs) \
+    $(usex "!debug" "--assertions:off" "") || die "bootstrap failed"
 
   compile_tool nimsuggest/nimsuggest.nim
   compile_tool tools/nimgrep.nim
