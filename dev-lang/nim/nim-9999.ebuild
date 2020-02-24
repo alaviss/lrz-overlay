@@ -24,8 +24,6 @@ src_unpack() {
 
 src_prepare() {
   sed -i 's|/opt|/usr/share|' config/nim.cfg || die "unable to set nimblepath"
-  sed -Ei 's|NIM_SYSROOT=.*$|NIM_SYSROOT=/usr/lib/nim|' bin/nim-gdb || \
-    die "unable to set nim sysroot path"
 
   default
 }
@@ -46,7 +44,7 @@ compile_tool() {
 
 src_compile() {
   cd csources
-  CC="$(tc-getCC)" LD="$(tc-getCC)" ./build.sh || die "building csources failed"
+  emake
   cd ..
 
   bin/nim c --parallel_build:$(makeopts_jobs) -d:release koch || \
@@ -70,12 +68,14 @@ src_compile() {
 src_install() {
   ./koch install "$PWD/fakeinstall" || die "koch install failed"
 
+  exeinto /usr/lib/nim/bin
   for i in bin/*; do
-    [[ -x "$i" ]] && dobin "$i"
+    [[ -x "$i" ]] && doexe "$i"
   done
 
   insinto /usr/lib/nim
-  doins -r fakeinstall/nim/lib/*
+  doins -r fakeinstall/nim/lib
+  doins -r fakeinstall/nim/doc
 
   insinto /etc/nim
   for i in fakeinstall/nim/config/*; do
@@ -87,16 +87,18 @@ src_install() {
   local compilerPkgDir=/usr/share/nimble/pkgs/compiler-\#$nimVersion
   insinto "$compilerPkgDir"
   doins -r fakeinstall/nim/compiler{,.nimble}
-  insinto "$compilerPkgDir/doc"
-  doins fakeinstall/nim/doc/*.txt
+  dosym /usr/lib/nim/doc "$compilerPkgDir/doc"
+  dosym "$compilerPkgDir/compiler" /usr/lib/nim/compiler
 
-  docinto html
   if use doc; then
-    dodoc doc/html/*.html doc/html/dochack.js
+    dohtml -A .idx -r doc/html/*
   fi
 
   insinto /usr/lib/nim/tools
   doins tools/nim-gdb.py
+  doins -r tools/dochack
+
+  doenvd "$FILESDIR/10nim"
 }
 
 pkg_postinst() {
