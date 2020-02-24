@@ -59,6 +59,7 @@ src_compile() {
   compile_tool tools/nimgrep.nim
   compile_tool nimpretty/nimpretty.nim
   compile_tool tools/nimfind.nim
+  compile_tool testament/testament.nim
 
   if use doc; then
     ./koch docs
