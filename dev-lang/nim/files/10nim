@@ -1,1 +1,3 @@
 PATH="/usr/lib/nim/bin"
+# portage won't pick this up unless we add it to ROOTPATH
+ROOTPATH="/usr/lib/nim/bin"
