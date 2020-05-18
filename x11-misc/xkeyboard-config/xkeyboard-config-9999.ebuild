@@ -19,6 +19,7 @@ src_install() {
   dobin "$ED/usr/share/X11/setxkb.sh"
   rm "$ED/usr/share/X11/setxkb.sh"
 
+  dodir /usr/share/pkgconfig
   cat << EOF > "$ED/usr/share/pkgconfig/xkeyboard-config.pc"
 prefix=$EPREFIX/usr
 datarootdir=\${prefix}/share
