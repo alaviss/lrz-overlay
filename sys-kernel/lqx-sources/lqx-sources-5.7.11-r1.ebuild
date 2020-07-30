@@ -21,7 +21,7 @@ DESCRIPTION="Liquorix is a distro kernel replacement built using the best \
 configuration and kernel sources for desktop, multimedia, and gaming workloads."
 
 K_BRANCH_ID="${KV_MAJOR}.${KV_MINOR}"
-K_LIQUORIX_VER="13"
+K_LIQUORIX_VER="16"
 
 EGIT_REPO_URI="https://github.com/damentz/liquorix-package.git"
 EGIT_COMMIT="${K_BRANCH_ID}-${K_LIQUORIX_VER}"
