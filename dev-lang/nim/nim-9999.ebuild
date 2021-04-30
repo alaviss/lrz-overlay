@@ -18,8 +18,8 @@ EGIT_REPO_URI="https://github.com/nim-lang/Nim.git"
 src_unpack() {
   git-r3_src_unpack
 
-  git-r3_fetch "https://github.com/nim-lang/csources.git"
-  git-r3_checkout "https://github.com/nim-lang/csources.git" "$S/csources"
+  git-r3_fetch "https://github.com/nim-lang/csources_v1.git"
+  git-r3_checkout "https://github.com/nim-lang/csources_v1.git" "$S/csources"
 }
 
 src_prepare() {
