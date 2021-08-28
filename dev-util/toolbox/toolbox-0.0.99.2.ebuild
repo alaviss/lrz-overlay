@@ -113,5 +113,5 @@ src_install() {
 }
 
 pkg_postinst() {
-	tmpfiles_process
+	tmpfiles_process toolbox.conf
 }
