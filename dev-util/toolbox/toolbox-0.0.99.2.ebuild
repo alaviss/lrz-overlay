@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit bash-completion-r1 go-module meson
+inherit go-module meson tmpfiles
 
 EGO_SUM=(
 	"github.com/BurntSushi/toml v0.3.1/go.mod"
@@ -18,6 +18,7 @@ EGO_SUM=(
 	"github.com/coreos/go-etcd v2.0.0+incompatible/go.mod"
 	"github.com/coreos/go-semver v0.2.0/go.mod"
 	"github.com/cpuguy83/go-md2man v1.0.10/go.mod"
+	"github.com/davecgh/go-spew v1.1.0/go.mod"
 	"github.com/davecgh/go-spew v1.1.1"
 	"github.com/davecgh/go-spew v1.1.1/go.mod"
 	"github.com/docker/go-units v0.4.0"
@@ -54,9 +55,12 @@ EGO_SUM=(
 	"github.com/spf13/pflag v1.0.3"
 	"github.com/spf13/pflag v1.0.3/go.mod"
 	"github.com/spf13/viper v1.3.2/go.mod"
+	"github.com/stretchr/objx v0.1.0/go.mod"
 	"github.com/stretchr/objx v0.1.1/go.mod"
 	"github.com/stretchr/testify v1.2.2"
 	"github.com/stretchr/testify v1.2.2/go.mod"
+	"github.com/stretchr/testify v1.7.0"
+	"github.com/stretchr/testify v1.7.0/go.mod"
 	"github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod"
 	"github.com/xordataexchange/crypt v0.0.3-0.20170626215501-b2862e3d0a77/go.mod"
 	"golang.org/x/crypto v0.0.0-20181203042331-505ab145d0a9"
@@ -66,8 +70,11 @@ EGO_SUM=(
 	"golang.org/x/sys v0.0.0-20190422165155-953cdadca894"
 	"golang.org/x/sys v0.0.0-20190422165155-953cdadca894/go.mod"
 	"golang.org/x/text v0.3.0/go.mod"
+	"gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405"
 	"gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod"
 	"gopkg.in/yaml.v2 v2.2.2/go.mod"
+	"gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c"
+	"gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod"
 )
 
 go-module_set_globals
@@ -80,18 +87,22 @@ LICENSE="Apache-2.0"
 SLOT="0"
 
 KEYWORDS="~amd64"
-IUSE=""
+IUSE="bash-completion"
 RESTRICT="test"
 
 DEPEND="
 	dev-go/go-md2man
-	sys-apps/systemd
+	bash-completion? ( app-shells/bash-completion )
 	"
 RDEPEND=">=app-emulation/podman-1.4.0"
+
+# Allows toolbox to be built without systemd
+PATCHES="${FILESDIR}/build_Allow-overriding-the-path-to-tmpfilesdir.patch"
 
 src_configure() {
 	local emesonargs=(
 		-Dprofile_dir=/etc/profile.d
+		-Dtmpfiles_dir=/usr/lib/tmpfiles.d
 	)
 
 	meson_src_configure
@@ -99,6 +110,8 @@ src_configure() {
 
 src_install() {
 	meson_src_install
+}
 
-	dobashcomp completion/bash/toolbox
+pkg_postinst() {
+	tmpfiles_process
 }
