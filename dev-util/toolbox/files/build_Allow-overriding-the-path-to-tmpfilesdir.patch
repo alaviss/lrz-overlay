@@ -1,0 +1,51 @@
+From a7333570534412a3f4be535c86af5b4fdc3078f3 Mon Sep 17 00:00:00 2001
+From: Randall Mason <Randall@Mason.CH>
+Date: Mon, 5 Jul 2021 03:46:07 +0200
+Subject: [PATCH] build: Allow overriding the path to tmpfilesdir
+
+When installing to a non-system-wide prefix as a non-root user, the
+tmpfilesdir path defined by systemd might not be accessible. Overriding
+the path helps to prevent the installation from failing.
+
+https://github.com/containers/toolbox/pull/717
+---
+ meson.build       | 8 ++++++--
+ meson_options.txt | 6 ++++++
+ 2 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 6824dd70e..66104c9b4 100644
+--- a/meson.build
++++ b/meson.build
+@@ -15,11 +15,15 @@ go_md2man = find_program('go-md2man')
+ shellcheck = find_program('shellcheck', required: false)
+ skopeo = find_program('skopeo', required: false)
+ 
+-systemd_dep = dependency('systemd')
+ bash_completion = dependency('bash-completion', required: false)
+ 
+ profiledir = get_option('profile_dir')
+-tmpfilesdir = systemd_dep.get_pkgconfig_variable('tmpfilesdir')
++
++tmpfilesdir = get_option('tmpfiles_dir')
++if tmpfilesdir == ''
++  systemd_dep = dependency('systemd')
++  tmpfilesdir = systemd_dep.get_pkgconfig_variable('tmpfilesdir')
++endif
+ 
+ if bash_completion.found()
+   install_data(
+diff --git a/meson_options.txt b/meson_options.txt
+index fe9f4106e..737834c5d 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -4,3 +4,9 @@ option(
+   type: 'string',
+   value: '/usr/share/profile.d'
+ )
++
++option(
++  'tmpfiles_dir',
++  description: 'Directory for system-wide tmpfiles.d(5) files',
++  type: 'string',
++)
