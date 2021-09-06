@@ -12,8 +12,6 @@ HOMEPAGE="https://gitlab.freedesktop.org/benzea/uresourced"
 KEYWORDS="~amd64"
 SLOT=0
 LICENSE="MIT"
-IUSE="static-libs test"
-REQUIRED_USE="test? ( static-libs )"
 SRC_URI="https://gitlab.freedesktop.org/benzea/uresourced/-/archive/v${PV}/uresourced-v${PV}.tar.bz2"
 
 DEPEND="
