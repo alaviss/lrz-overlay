@@ -105,7 +105,7 @@ DEPEND="
 	dev-go/go-md2man
 	bash-completion? ( app-shells/bash-completion )
 	"
-RDEPEND=">=app-emulation/podman-1.4.0"
+RDEPEND=">=app-containers/podman-1.4.0"
 
 src_configure() {
 	local emesonargs=(
