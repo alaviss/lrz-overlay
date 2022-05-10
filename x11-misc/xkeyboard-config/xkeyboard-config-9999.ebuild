@@ -12,8 +12,12 @@ HOMEPAGE="https://www.freedesktop.org/wiki/Software/XKeyboardConfig https://gitl
 EGIT_REPO_URI="https://github.com/DreymaR/BigBagKbdTrixXKB.git"
 EGIT_CHECKOUT_DIR="${WORKDIR}/bbkt-mod"
 XKBVER=2.23.1 # The xkb version used by the mod
+UBUNTUVER=${XKBVER}-1ubuntu1
 
-SRC_URI="https://www.x.org/releases/individual/data/${PN}/${PN}-${XKBVER}.tar.bz2"
+SRC_URI="
+	https://www.x.org/releases/individual/data/${PN}/${PN}-${XKBVER}.tar.bz2
+	http://archive.ubuntu.com/ubuntu/pool/main/x/${PN}/${PN}_${UBUNTUVER}.diff.gz
+	"
 KEYWORDS=""
 
 LICENSE="MIT"
@@ -30,13 +34,17 @@ BDEPEND="
 
 S="${WORKDIR}/${PN}-${XKBVER}"
 
+PATCHES=(
+	${WORKDIR}/${PN}_${UBUNTUVER}.diff
+)
+
 pkg_setup() {
 	python-any-r1_pkg_setup
 }
 
 src_unpack() {
 	git-r3_src_unpack
-	unpack "${A}"
+	unpack ${A}
 }
 
 src_configure() {
